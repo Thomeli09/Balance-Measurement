@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: >-
+  Balance-Measurement: Python driver for RS-232/USB bench
+  scales
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Eliott
+    family-names: Thommes
+    orcid: 'https://orcid.org/0009-0005-0697-2438'
+repository-code: 'https://github.com/Thomeli09/Balance-Measurement'
+license: MIT
+version: 0.0.1
+date-released: '2026-09-15'
+
+# Zenodo integration (optional):
+# 1. Enable the Zenodo webhook at zenodo.org/account/settings/github
+# 2. After first tag release, copy the concept DOI from Zenodo and add:
+#
+# identifiers:
+#   - type: doi
+#     value: 10.5281/zenodo.XXXXXXX
+#     description: Zenodo concept DOI (resolves to latest version)

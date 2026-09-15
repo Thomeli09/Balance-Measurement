@@ -1,0 +1,60 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>ce8de80a-4d27-4e42-8ec1-332b3bf1fb32</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Balance_Measurement.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Balance Measurement</Name>
+    <RootNamespace>Balance Measurement</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BalanceLib.py" />
+    <Compile Include="Balance_Measurement.py" />
+    <Compile Include="Data2LATEXLib.py" />
+    <Compile Include="DataManagementLib.py" />
+    <Compile Include="DataStorageLib.py" />
+    <Compile Include="GUILib.py" />
+    <Compile Include="GUIMessageLib.py" />
+    <Compile Include="MettlerPG5002SBinder20260814.py" />
+    <Compile Include="ObjectManagementLib.py" />
+    <Compile Include="PlotLib.py" />
+    <Compile Include="ScaleBench.py" />
+    <Compile Include="SpecimentDataLib.py" />
+    <Compile Include="Test.py" />
+    <Compile Include="TestDataStorage.py" />
+    <Compile Include="TestLogging.py" />
+    <Compile Include="TimeLib.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CITATION.cff" />
+    <Content Include="LICENSE" />
+    <Content Include="LogoUEE.png" />
+    <Content Include="README.md" />
+    <Content Include="requirements-dev.txt" />
+    <Content Include="requirements.txt" />
+    <Content Include="template_Specimen Test Data Sheet Supplementary.tex" />
+    <Content Include="template_Specimen Test Data Sheet.tex" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
