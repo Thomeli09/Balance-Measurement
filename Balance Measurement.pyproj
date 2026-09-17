@@ -26,6 +26,8 @@
     <Compile Include="Data2LATEXLib.py" />
     <Compile Include="DataManagementLib.py" />
     <Compile Include="DataStorageLib.py" />
+    <Compile Include="examples\advanced_simulation.py" />
+    <Compile Include="examples\basic_simulation.py" />
     <Compile Include="GUILib.py" />
     <Compile Include="GUIMessageLib.py" />
     <Compile Include="MettlerPG5002SBinder20260814.py" />
@@ -33,9 +35,28 @@
     <Compile Include="PlotLib.py" />
     <Compile Include="ScaleBench.py" />
     <Compile Include="SpecimentDataLib.py" />
+    <Compile Include="src\chute_de_blocs\geometry\rock.py" />
+    <Compile Include="src\chute_de_blocs\geometry\terrain.py" />
+    <Compile Include="src\chute_de_blocs\geometry\__init__.py" />
+    <Compile Include="src\chute_de_blocs\materials\rock_material.py" />
+    <Compile Include="src\chute_de_blocs\materials\terrain_material.py" />
+    <Compile Include="src\chute_de_blocs\materials\__init__.py" />
+    <Compile Include="src\chute_de_blocs\mechanics\contact.py" />
+    <Compile Include="src\chute_de_blocs\mechanics\dynamics.py" />
+    <Compile Include="src\chute_de_blocs\mechanics\rebound.py" />
+    <Compile Include="src\chute_de_blocs\mechanics\__init__.py" />
+    <Compile Include="src\chute_de_blocs\simulation\trajectory.py" />
+    <Compile Include="src\chute_de_blocs\simulation\__init__.py" />
+    <Compile Include="src\chute_de_blocs\visualization\plot.py" />
+    <Compile Include="src\chute_de_blocs\visualization\__init__.py" />
+    <Compile Include="src\chute_de_blocs\__init__.py" />
     <Compile Include="Test.py" />
     <Compile Include="TestDataStorage.py" />
     <Compile Include="TestLogging.py" />
+    <Compile Include="tests\test_bloc.py" />
+    <Compile Include="tests\test_geometry.py" />
+    <Compile Include="tests\test_materials.py" />
+    <Compile Include="tests\test_simulation.py" />
     <Compile Include="TimeLib.py" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +69,18 @@
     <Content Include="requirements.txt" />
     <Content Include="template_Specimen Test Data Sheet Supplementary.tex" />
     <Content Include="template_Specimen Test Data Sheet.tex" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="docs\" />
+    <Folder Include="examples\" />
+    <Folder Include="src\" />
+    <Folder Include="src\chute_de_blocs\" />
+    <Folder Include="src\chute_de_blocs\geometry\" />
+    <Folder Include="src\chute_de_blocs\materials\" />
+    <Folder Include="src\chute_de_blocs\mechanics\" />
+    <Folder Include="src\chute_de_blocs\simulation\" />
+    <Folder Include="src\chute_de_blocs\visualization\" />
+    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
