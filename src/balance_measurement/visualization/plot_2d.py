@@ -636,11 +636,6 @@ def plot_pie(
     tuple of list
         Wedge patches, regular labels, and numeric annotations. The last
         list is empty when ``display='none'``.
-
-    Notes
-    -----
-    The numerical x/y axes are hidden automatically because they are not
-    meaningful for a pie chart. The chart title and slice labels remain visible.
     """
     if display not in ("percent", "absolute", "both", "none"):
         raise ValueError("Unsupported 'display' mode.")
@@ -678,8 +673,6 @@ def plot_pie(
     )
     wedges = list(result[0])
     texts = list(result[1])
-    # Matplotlib 3.11+ returns PieContainer (indexable, but has no len()).
-    # Earlier versions returned a tuple with two or three elements.
     numeric_texts = list(result[2]) if display != "none" else []
     if options.hatch is not None:
         for wedge in wedges:
@@ -697,9 +690,8 @@ def plot_pie(
             )
     # A pie chart has no meaningful numerical x/y axes. Hide its tick marks,
     # tick labels, spines and grid while retaining slice labels and the title.
-    # This remains effective if configure_axes() is called afterward.
+    # This remains effective if configure_axes() is called afterward. 
     ax.set_axis_off()
-
     return wedges, texts, numeric_texts
 
 

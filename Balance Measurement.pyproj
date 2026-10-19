@@ -23,7 +23,6 @@
   <ItemGroup>
     <Compile Include="src\balance_measurement\BalanceLib.py" />
     <Compile Include="examples\Balance_Measurement.py" />
-    <Compile Include="examples\DataManagementLib.py" />
     <Compile Include="src\balance_measurement\data_record\DataStorageLib.py" />
     <Compile Include="src\balance_measurement\gui\GUILib.py" />
     <Compile Include="src\balance_measurement\latex_report\Data2LATEXLib.py" />
@@ -31,7 +30,6 @@
     <Compile Include="src\balance_measurement\logging\GUIMessageLib.py" />
     <Compile Include="examples\MettlerPG5002SBinder20260814.py" />
     <Compile Include="src\balance_measurement\time\__init__.py" />
-    <Compile Include="src\balance_measurement\utils\ObjectManagementLib.py" />
     <Compile Include="src\balance_measurement\scale\ScaleBench.py" />
     <Compile Include="src\balance_measurement\latex_report\SpecimentDataLib.py" />
     <Compile Include="src\balance_measurement\scale\__init__.py" />
@@ -42,7 +40,6 @@
     <Compile Include="src\balance_measurement\visualization\plot_2d.py" />
     <Compile Include="src\balance_measurement\visualization\plot_3d.py" />
     <Compile Include="src\balance_measurement\visualization\plot_basic.py" />
-    <Compile Include="src\balance_measurement\visualization\plot_board.py" />
     <Compile Include="src\balance_measurement\visualization\plot_parameters.py" />
     <Compile Include="src\balance_measurement\visualization\__init__.py" />
     <Compile Include="src\balance_measurement\__init__.py" />
