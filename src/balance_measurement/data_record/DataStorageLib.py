@@ -24,7 +24,7 @@ import numpy as np
 import pandas as pd
 
 # Custom Lib
-from GUIMessageLib import LogManager
+from ..logging.GUIMessageLib import LogManager
 
 """
 # Improvement to be done:

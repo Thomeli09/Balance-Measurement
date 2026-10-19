@@ -46,10 +46,16 @@
     <Compile Include="src\balance_measurement\visualization\plot_parameters.py" />
     <Compile Include="src\balance_measurement\visualization\__init__.py" />
     <Compile Include="src\balance_measurement\__init__.py" />
+    <Compile Include="tests\conftest.py" />
+    <Compile Include="tests\integration\test_scale_hardware.py" />
+    <Compile Include="src\balance_measurement\time\TimeLib.py" />
     <Compile Include="tests\Test.py" />
     <Compile Include="tests\TestDataStorage.py" />
     <Compile Include="tests\TestLogging.py" />
-    <Compile Include="src\balance_measurement\time\TimeLib.py" />
+    <Compile Include="tests\test_core.py" />
+    <Compile Include="tests\test_logging.py" />
+    <Compile Include="tests\test_storage.py" />
+    <Compile Include="tests\test_time.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CITATION.cff" />
@@ -78,6 +84,7 @@
     <Folder Include="src\balance_measurement\logging\" />
     <Folder Include="src\balance_measurement\visualization\" />
     <Folder Include="tests\" />
+    <Folder Include="tests\integration\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

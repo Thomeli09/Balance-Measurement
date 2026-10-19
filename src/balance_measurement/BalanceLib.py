@@ -11,19 +11,19 @@
 # Other Lib
 
 import time
+import statistics
 
 # Custom Lib
-from SpecimentDataLib import SpecimenData
+from .latex_report.SpecimentDataLib import SpecimenData
 
-from ScaleBench import SerialScale, AutoReconSerialScale, Scale
+from .scale.ScaleBench import SerialScale, AutoReconSerialScale, Scale
 
-import TimeLib 
 import datetime
 
-from DataStorageLib import Storage, StorageCSV
-from GUIMessageLib import LogManager
+from .data_record.DataStorageLib import Storage, StorageCSV
+from .logging.GUIMessageLib import LogManager
 
-from PlotLib import ParamPLT
+from .visualization.plot_parameters import PlotParameters as ParamPLT
 """
 @dataclass
 class MessageEntry:
@@ -71,6 +71,8 @@ class BalanceBasic:
 
         # Logger and debug
         self._Logger = None
+        if Logger is not None:
+            self.getLogger = Logger
 
     # Metadata
 
@@ -111,7 +113,7 @@ class BalanceBasic:
 
     @property
     def getHatch(self):
-        return self.Hatch
+        return self._Hatch
 
     @getHatch.setter
     def getHatch(self, Hatch):
@@ -370,11 +372,14 @@ class Balance(BalanceBasic):
             print("Error: ListOriginal must be a list or a list of lists.")
             return None
 
-    def MeasurePreparation(self, Measurements: list, Suffixes: list = []) -> list | None:
+    def MeasurePreparation(self, Measurements: list, Suffixes: list | None = None) -> list | None:
         """
         Prepare the balance for measurement.
         This method can be overridden in subclasses to implement specific preparation steps.
         """
+        if Suffixes is None:
+            Suffixes = []
+
         if isinstance(Measurements, list) and isinstance(Suffixes, list):
             Date = datetime.datetime.now()
             DateString = Date.isoformat(sep=" ", timespec="milliseconds")
@@ -444,8 +449,10 @@ class Balance(BalanceBasic):
             return None
         try:
             Measure = self.getBalanceSerial.getWeight()
+            if Measure is None:
+                return None
 
-            Measurement = self.MeasurePreparation(Measure)
+            Measurement = self.MeasurePreparation([Measure])
             self.MeasureStorage(Measurement=Measurement)
 
             return Measurement
@@ -454,7 +461,7 @@ class Balance(BalanceBasic):
             print(f"Error measuring weight: {e}")
             return None
 
-    def getWeightStable(self, NumRead: int, Delay: float, TimeOut: float, AbsTol: float, RelTol: float) -> list | None:
+    def getWeightStable(self, NumRead: int, Delay: float, TimeOut: float, AbsTol: float, RelTol: float) -> float | None:
         """
         Measure the weight multiple times until a stable value is reached within a specified tolerance.
         Args:
@@ -464,37 +471,33 @@ class Balance(BalanceBasic):
         Returns:
             float: The stable weight measurement.
         """
+        if NumRead < 1:
+            raise ValueError("NumRead must be at least 1.")
+        if Delay < 0 or TimeOut < 0 or AbsTol < 0 or RelTol < 0:
+            raise ValueError("Delay, TimeOut, AbsTol, and RelTol cannot be negative.")
+
         Weights = []
+        Deadline = time.monotonic() + TimeOut
 
-        BoolContinue = True
-        PreWeight = 0
-
-        IndexRead = 0
-        Deadline = time.time() + TimeOut
-
-        while BoolContinue:
-            Weight = self.getWeight()
-
-            if Weight is not None:
-                IndexRead += 1
-                Weights.append(Weight)
-            else:
-                print("Error: Failed to measure weight.")
+        for _ in range(NumRead):
+            Measurement = self.getWeight()
+            if Measurement is None:
                 return None
 
-            if IndexRead >= NumRead:
-                BoolContinue = False
-            elif time.time() > Deadline:
-                BoolContinue = False
-            elif abs(Weight - PreWeight) < AbsTol and abs(Weight - PreWeight) / abs(PreWeight) < RelTol:
-                BoolContinue = False # Mettre une autre condition de convergence se baser sur l'analyse des données précédentes pour déterminer si ok
-                # Mettre un délai pour vérifier la convergence
-            PreWeight = Weight
-            time.sleep(Delay)
+            Weight = float(Measurement[2])
+            Weights.append(Weight)
 
-        StableWeight = sum(Weights) / len(Weights) # Calculer d'une autre manière la valeur stable en fonction des données précédentes pour déterminer si ok
-        # Par exemple ne pas utiliser les zones ou varie de trop les outliers et avant pas converger
-        return StableWeight
+            if len(Weights) > 1:
+                Difference = abs(Weight - Weights[-2])
+                if Difference <= max(AbsTol, RelTol * abs(Weights[-2])):
+                    break
+
+            Remaining = Deadline - time.monotonic()
+            if Remaining <= 0:
+                break
+            time.sleep(min(Delay, Remaining))
+
+        return sum(Weights) / len(Weights) if Weights else None
 
     def getWeightRepeated(self, NumRead: int, Delay: float, DelayMode: str | int = 'fixed'):
         """
@@ -514,6 +517,9 @@ class Balance(BalanceBasic):
         DelayModeDict = {'Fixed': 'Fixed', 'Variable': 'Variable', 
                          0: 'Fixed', 1: 'Variable'}
 
+        if NumRead < 0 or Delay < 0:
+            raise ValueError("NumRead and Delay cannot be negative.")
+
         DelayMode = DelayModeDict.get(DelayMode, 'Fixed')  # Default to 'Fixed' if unknown mode is provided
 
         Measurements = []
@@ -523,7 +529,7 @@ class Balance(BalanceBasic):
                 Measurement = self.getWeight()
 
                 if Measurement is not None:
-                    Measurements.append(Measurement)
+                    Measurements.append(float(Measurement[2]))
                 else:
                     print("Error: Failed to measure weight.")
                     return Measurements
@@ -536,7 +542,7 @@ class Balance(BalanceBasic):
                 Measurement = self.getWeight()
 
                 if Measurement is not None:
-                    Measurements.append(Measurement)
+                    Measurements.append(float(Measurement[2]))
                 else:
                     print("Error: Failed to measure weight.")
                     return Measurements
@@ -570,7 +576,7 @@ class Balance(BalanceBasic):
         if Method == 'Average':
             ReliableWeight = sum(Weights) / len(Weights)
         elif Method == 'Median':
-            ReliableWeight = sorted(Weights)[len(Weights) // 2]
+            ReliableWeight = statistics.median(Weights)
         else:
             print(f"Error: Unknown method '{Method}'. Use 'Average' or 'Median'.")
             return None

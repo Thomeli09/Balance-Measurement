@@ -51,40 +51,52 @@ To run the tests:
 python -m pytest -q
 ```
 
+The default test run only exercises code that does not need a physical scale.
+Hardware tests are marked and skipped unless explicitly requested. To run them,
+set the serial port (and optionally the baud rate and protocol), then use:
+
+```powershell
+$env:BALANCE_SCALE_PORT = "COM3"
+$env:BALANCE_SCALE_BAUDRATE = "9600"
+# Optional: set to 1 or 2 to skip protocol auto-detection.
+$env:BALANCE_SCALE_PROTOCOL = "1"
+python -m pytest -q --run-hardware -m hardware
+```
+
+On Linux/macOS, set the same `BALANCE_SCALE_*` environment variables in the
+shell before running pytest. Hardware tests only request a reading; they do not
+send tare or zero commands.
+
 For a regular non-editable installation, use `python -m pip install .`.
 
 ## Repository layout
 
 ```text
 src/balance_measurement/
-    __init__.py                # Public API
-    data_record/
-        data_record.py         # Data record class and methods
-    gui/                        # GUI components (if any)
-    latex_report/
-    logging/
-        logger.py              # Logging configuration and helpers
-    scale/
-        scale.py               # Scale communication and measurement classes
-        scale_abc.py           # Abstract base class for scales
-        scale_exceptions.py    # Scale-related exceptions
-    time/
-        time_utils.py          # Time-related utilities
-    utils/                     # Reused generic data tools
-    visualization/
-        plot_parameters.py     # Shared plotting configuration
-        plot_basic.py          # Figures and formatting
-        plot_2d.py             # General 2D plot helpers
-        plot_board.py          # Voltorb-specific heatmaps
-    balance_lib.py                 # Balance-specific algorithms and helpers
-examples/                       # Runnable scripts
-    MettlerToledo_RS232_example.py  # Example for Mettler Toledo RS-232 balance
-tests/                          # Automated tests
+    __init__.py                 # Public package API
+    BalanceLib.py               # Balance management and measurement workflows
+    data_record/                 # CSV storage and data logging
+    gui/                         # GUI components
+    latex_report/                # Specimen metadata and report support
+    logging/                     # Application logging
+    scale/                       # Serial scale communication
+    time/                        # Time utilities and stopwatch
+    utils/                       # Shared utilities
+    visualization/               # Matplotlib figures and plot helpers
+examples/                        # Runnable example scripts
+tests/                           # Automated tests
 ```
 ## Quick start
 
 ```python
 from balance_measurement import Scale
+
+scale = Scale(Port="COM3", Protocol=1)
+try:
+    scale.Start()
+    print(scale.getWeight())
+finally:
+    scale.Disconnect()
 ```
 ## Examples and tests
 

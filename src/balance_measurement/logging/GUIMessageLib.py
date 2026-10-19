@@ -13,18 +13,18 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Optional
 """
-# Other Lib
-import rich
-
 import logging
 from logging.handlers import RotatingFileHandler
-
-import tkinter as tk
-from tkinter import messagebox
-
 from pathlib import Path
-# Custom Lib
-from ObjectManagementLib import ObjectCopy
+
+
+def _get_tkinter():
+    try:
+        import tkinter as tk
+        from tkinter import messagebox
+    except ImportError as error:
+        raise RuntimeError("Tkinter is required to display GUI messages.") from error
+    return tk, messagebox
 
 """
 Message Management objects
@@ -584,6 +584,7 @@ class MessageGUI(MessageManager):
     # Information message functions
     def show_info(title, message):
         """Show an info message box."""
+        tk, messagebox = _get_tkinter()
         root = tk.Tk()
         root.withdraw()  # Hide the root window
         messagebox.showinfo(title, message)
@@ -592,6 +593,7 @@ class MessageGUI(MessageManager):
     # Question message functions
     def show_question(title, message):
         """Show a question dialog and return True for Yes or False for No."""
+        tk, messagebox = _get_tkinter()
         root = tk.Tk()
         root.withdraw()  # Hide the root window
         response = messagebox.askyesno(title, message)
@@ -601,6 +603,7 @@ class MessageGUI(MessageManager):
     # Warning message functions
     def show_warning(title, message):
         """Show a warning message box."""
+        tk, messagebox = _get_tkinter()
         root = tk.Tk()
         root.withdraw()  # Hide the root window
         messagebox.showwarning(title, message)
@@ -609,6 +612,7 @@ class MessageGUI(MessageManager):
     # Error message functions
     def show_error(title, message, non_blocking=True):
         """Show an error message box. Defaults to non-blocking."""
+        tk, messagebox = _get_tkinter()
         if non_blocking:
             root = tk.Tk()
             root.withdraw()  # Hide the root window
@@ -623,6 +627,8 @@ class MessageGUI(MessageManager):
     # Interactive message functions
     def ask_user_input(title, prompt, expected_type=str):
         """Ask for user input through a simple entry dialog and validate its type."""
+        tk, messagebox = _get_tkinter()
+
         def on_submit():
             nonlocal user_input, valid
             user_input = entry.get()
@@ -661,6 +667,7 @@ class MessageGUI(MessageManager):
     # Cancel/Retry and OK/Cancel message functions
     def show_retry_cancel(title, message):
         """Show a retry/cancel dialog and return True for Retry or False for Cancel."""
+        tk, messagebox = _get_tkinter()
         root = tk.Tk()
         root.withdraw()  # Hide the root window
         response = messagebox.askretrycancel(title, message)
@@ -669,6 +676,7 @@ class MessageGUI(MessageManager):
 
     def show_ok_cancel(title, message):
         """Show an OK/Cancel dialog and return True for OK or False for Cancel."""
+        tk, messagebox = _get_tkinter()
         root = tk.Tk()
         root.withdraw()  # Hide the root window
         response = messagebox.askokcancel(title, message)

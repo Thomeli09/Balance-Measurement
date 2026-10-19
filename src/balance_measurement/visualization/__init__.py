@@ -1,4 +1,4 @@
-"""Matplotlib-based, typed 2D plotting utilities for the Voltorb Flip package.
+"""Matplotlib-based plotting utilities for balance measurement.
 
 The public visualization API is deliberately centered on explicit figures,
 axes, plot configuration and returned Matplotlib artists.
@@ -23,7 +23,6 @@ from .plot_basic import (
     update_layout,
     update_line_colors,
 )
-from .plot_board import plot_analysis, plot_board
 from .plot_parameters import PlotParameters
 from .plot_2d import (
     draw_circle,
@@ -44,7 +43,7 @@ from .plot_2d import (
 )
 
 __all__ = [
-    "PlotParameters", "plot_board", "plot_analysis",
+    "PlotParameters",
     "create_figure", "configure_axes", "add_legend", "add_legend_with_subtitles",
     "update_line_colors", "add_colorbar", "format_text", "add_figure_text",
     "compute_limits", "set_figure_size", "save_figure", "show_figure",

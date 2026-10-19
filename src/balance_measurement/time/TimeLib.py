@@ -10,11 +10,6 @@
 
 # Other Lib
 import time
-import matplotlib.pyplot as plt
-
-
-# Custom Lib
-from PlotLib import ParamPLT, StartPlots, PLTShow, PLTBar
 
 """
 TimeExt : Time extended object
@@ -153,19 +148,26 @@ class Chrono(TimeExt):
             print("Info: No records to display.")
             return
 
+        from ..visualization import PlotParameters, configure_axes, create_figure, plot_bars, show_figure
+
         if paramPLT is None:
-            paramPLT = ParamPLT(colour='b', linetype=1, marker=0, linesize=0.8, fontsize=14)
-            paramPLT.getTitle = f"Stopwatch: {self.getName}"
-            paramPLT.getXLabel = "Records"
-            paramPLT.getYLabel = "Elapsed time (s)"
-            paramPLT.getGrid(Axis=-5)
+            paramPLT = PlotParameters(
+                color="b",
+                linewidth=0.8,
+                fontsize=14,
+                title=f"Stopwatch: {self.getName}",
+                xlabel="Records",
+                ylabel="Elapsed time (s)",
+                show_grid=True,
+            )
 
         Times = [rec[0] for rec in self.getRecords]
         Labels = [rec[1] if rec[1] else f"Record {i+1}" for i, rec in enumerate(self.getRecords)]
 
-        StartPlots()
-        PLTBar(Labels, Times, paramPLT)
-        PLTShow(paramPLT)
+        Figure, Axes = create_figure(parameters=paramPLT)
+        plot_bars(Axes, Labels, Times, parameters=paramPLT)
+        configure_axes(Axes, paramPLT)
+        show_figure(Figure)
 
 
 # Utility function to convert time to optimal unit

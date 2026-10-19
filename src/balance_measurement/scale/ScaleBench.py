@@ -10,20 +10,15 @@
 
 # Other Lib
 import re
-
-import statistics
-
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 
 import serial
 from serial import SerialException
 
 
 # Custom Lib
-from GUIMessageLib import LogManager
-
-import TimeLib
+from ..logging.GUIMessageLib import LogManager
 
 
 """
@@ -49,7 +44,7 @@ class SerialScale:
             Port: Serial device path, e.g. "/dev/ttyUSB0" or "COM3".
             Baudrate: Baud rate matching the scale's RS-232 setting.
             Timeout: Per-readline timeout in seconds.
-            Protocol: Force protocol 1 (multi-line) or 2 (single-line).
+            Protocol: Force protocol 1 (single-line) or 2 (multi-line).
                 Omit to auto-detect on first connection.
         """
         # Connection parameters
@@ -78,6 +73,8 @@ class SerialScale:
         # Logger and debug
         self._Logger = None
         self._BDebug: bool = False
+        if Logger is not None:
+            self.getLogger = Logger
 
         # Scale preparation: clear buffers and detect protocol
         self.getComSerial.reset_input_buffer()
@@ -140,6 +137,8 @@ class SerialScale:
 
     @getProtocol.setter
     def getProtocol(self, Protocol: int | None) -> None:
+        if Protocol not in (None, 1, 2):
+            raise ValueError("Protocol must be 1, 2, or None.")
         self._Protocol = Protocol
 
     @property
@@ -170,7 +169,7 @@ class SerialScale:
 
     def setLastResponseTime(self, LastResponseTime: datetime | None = None) -> None:
         if LastResponseTime is None:
-            self._LastResponseTime = datetime.utcnow()
+            self._LastResponseTime = datetime.now(timezone.utc)
         else:
             self.getLastResponseTime = LastResponseTime
 
@@ -206,7 +205,6 @@ class SerialScale:
         """Write an ASCII command terminated with CR LF."""
         if not self.getComSerial.is_open:
             raise serial.SerialException("Serial port is not open.")
-            return False
 
         if self.getComSerial.in_waiting:
             self.getComSerial.reset_input_buffer()
@@ -214,7 +212,7 @@ class SerialScale:
         FullCommand = f"{Command}\r\n".encode("ascii")
         self.getComSerial.write(FullCommand)
 
-        if self.getBLogger():
+        if self.getBLogger:
             self.getLogger.Debug(Message=f"Sending command: {Command}")
 
         return True
@@ -235,7 +233,7 @@ class SerialScale:
             if Line:
                 Lines.append(Line)
 
-        if self.getBLogger():
+        if self.getBLogger:
             self.getLogger.Debug(Message=f"Received lines: {Lines}")
 
         if Lines:
@@ -265,12 +263,12 @@ class SerialScale:
         MergedLines = " ".join(Lines)
         if re.search(r"[-+]?\s*[\d.]+\s*[a-zA-Z]+", Lines[0]):
             self.getProtocol = 1
-            if self.getBLogger():
+            if self.getBLogger:
                 self.getLogger.Info(Message="Bench scale: detected protocol 1 (single-line format)")
 
         elif any(h in MergedLines for h in ["GS", "No.", "Total"]):
             self.getProtocol = 2
-            if self.getBLogger():
+            if self.getBLogger:
                 self.getLogger.Info(Message="Bench scale: detected protocol 2 (multi-line GS/NT/GT format)")
 
         if self.getProtocol is None:
@@ -310,11 +308,19 @@ class SerialScale:
             return None
 
         if self.getProtocol == 1:
-            return self.ParseLine(Lines[0])
+            return self._ParseWeight(Lines[0])
         elif self.getProtocol == 2:
             for Line in Lines:
                 if Line.startswith(("GS", "NT", "GT")):
-                    return self.ParseLine(Line)
+                    return self._ParseWeight(Line)
+        return None
+
+    @staticmethod
+    def _ParseWeight(Line: str) -> float | None:
+        """Return the first numeric token in a scale response."""
+        for Token in Line.split():
+            if re.fullmatch(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?", Token):
+                return float(Token)
         return None
 
     def Tare(self) -> bool:
@@ -326,14 +332,13 @@ class SerialScale:
         Lines = self.LineRead()
         
         if Lines:
-            LineList = self.ParseLine(Lines[0])
-            
+            LineList = self.ParseLine(Lines[0]) or []
             if LineList[0:2] == ["T", "S"]:
                 return True
-            else:
-                if self.getBLogger():
-                    self.getLogger.Warning(Message=f"Tare command failed. Response: {Lines}")
-                return False
+
+        if self.getBLogger:
+            self.getLogger.Warning(Message=f"Tare command failed. Response: {Lines}")
+        return False
 
 
     def setTare(self, Value: float) -> bool:
@@ -349,19 +354,19 @@ class SerialScale:
         Lines = self.LineRead()
         
         if Lines:
-            LineList = self.ParseLine(Lines[0])
+            LineList = self.ParseLine(Lines[0]) or []
     
-            if LineList[0:2] == ["TA", "A"]:
-                if abs((float(LineList[2])-Value)/Value) < 0.01:
+            if LineList[0:2] == ["TA", "A"] and len(LineList) > 2:
+                ActualValue = self._ParseWeight(LineList[2])
+                if ActualValue is not None and abs(ActualValue - Value) <= max(abs(Value) * 0.01, 1e-9):
                     return True
                 else:
-                    if self.getBLogger():
-                        self.getLogger.Warning(Message=f"setTare command failed. To large difference between requested and actual tare value. Requested: {Value}, Actual: {LineList[3]}")
+                    if self.getBLogger:
+                        self.getLogger.Warning(Message=f"setTare command failed. Requested: {Value}, response: {Lines}")
                     return False
-            else:
-                if self.getBLogger():
-                    self.getLogger.Warning(Message=f"setTare command failed. Response: {Lines}")
-                return False
+        if self.getBLogger:
+            self.getLogger.Warning(Message=f"setTare command failed. Response: {Lines}")
+        return False
 
     def Zero(self) -> bool:
         """Send the zero command, resetting the scale's internal zero point."""
@@ -372,14 +377,15 @@ class SerialScale:
         Lines = self.LineRead()
         
         if Lines:
-            LineList = self.ParseLine(Lines[0])
+            LineList = self.ParseLine(Lines[0]) or []
     
             if LineList == ["Z", "A"]:
                 return True
             else:
-                if self.getBLogger():
+                if self.getBLogger:
                     self.getLogger.Warning(Message=f"Zero command failed. Response: {Lines}")
                 return False
+        return False
 
     def Display(self, Message: str = "Hello") -> bool:
         """Send a message to the scale's display (if supported)."""
@@ -388,15 +394,15 @@ class SerialScale:
         Lines = self.LineRead()
         
         if Lines:
-            LineList = self.ParseLine(Lines[0])
+            LineList = self.ParseLine(Lines[0]) or []
     
             if LineList[0:2] == ["D", "A"]:
                 return True
             else:
-                if self.getBLogger():
+                if self.getBLogger:
                     self.getLogger.Warning(Message=f"Display command failed. Response: {Lines}")
                 return False
-        return True
+        return False
 
     def DisplayWeight(self) -> bool:
         """Send a message to the scale's display (if supported)."""
@@ -412,10 +418,10 @@ class SerialScale:
             if LineList[0:2] == ["DW", "A"]:
                 return True
             else:
-                if self.getBLogger():
+                if self.getBLogger:
                     self.getLogger.Warning(Message=f"Display weight command failed. Response: {Lines}")
                 return False
-        return True
+        return False
 
     def getBConnected(self) -> bool:
         """Return True if the serial port is open."""
@@ -440,6 +446,12 @@ class SerialScale:
 
     def Disconnect(self) -> None:
         """Close the serial port."""
+        self.Close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
         self.Close()
 
 class AutoReconSerialScale:
@@ -555,7 +567,9 @@ class Scale:
         self._Scale: SerialScale | AutoReconSerialScale | None = None
 
         # Test and debug
-        self._Logger = Logger
+        self._Logger = None
+        if Logger is not None:
+            self.getLogger = Logger
 
     
     # Connection parameters
@@ -640,10 +654,13 @@ class Scale:
         Raises:
             TimeoutError: If the scale does not respond within "Timeout" seconds.
         """
-        Deadline = time.time() + Timeout
+        if Timeout <= 0:
+            raise ValueError("Timeout must be positive.")
+
+        Deadline = time.monotonic() + Timeout
         LastExc: Exception | None = None
 
-        while time.time() < Deadline:
+        while time.monotonic() < Deadline:
             if self.getScale is not None:
                 self.getScale.Disconnect()
                 self.getScale = None
@@ -654,20 +671,30 @@ class Scale:
                         Port=self.getSerialPort,
                         Baudrate=self.getBaudrate,
                         Timeout=self.getTimeout,
-                        Protocol=self.getProtocol)
+                        Protocol=self.getProtocol,
+                        Logger=self.getLogger)
                 else:
                     self.getScale = SerialScale(
                         Port=self.getSerialPort,
                         Baudrate=self.getBaudrate,
                         Timeout=self.getTimeout,
-                        Protocol=self.getProtocol)
+                        Protocol=self.getProtocol,
+                        Logger=self.getLogger)
 
-                if self.getBConnected():
-                    if self.getScale.getBLogger():
-                        self.getScale.getLogger.Info(f"Bench scale on {self.getSerialPort} is connected and responsive.")
+                ActiveScale = (
+                    self.getScale.getSerialScale
+                    if isinstance(self.getScale, AutoReconSerialScale)
+                    else self.getScale
+                )
+                if ActiveScale.getProtocol is None:
+                    ActiveScale.getAutoProtocol()
+
+                if self.getBConnected() and self.getBResponsive():
+                    if self.getBLogger:
+                        self.getLogger.Info(f"Bench scale on {self.getSerialPort} is connected and responsive.")
                     return
 
-            except (SerialException, Exception) as Exc:
+            except Exception as Exc:
                 LastExc = Exc
 
             time.sleep(0.2)
@@ -722,6 +749,13 @@ class Scale:
         if self.getScale is not None:
             self.getScale.Close()
             self.getScale = None
+
+    def __enter__(self):
+        self.Start()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
+        self.Disconnect()
 
     def __del__(self) -> None:
         self.Disconnect()
