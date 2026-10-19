@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>ce8de80a-4d27-4e42-8ec1-332b3bf1fb32</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Balance_Measurement.py</StartupFile>
+    <StartupFile>examples\Balance_Measurement.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,65 +21,60 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BalanceLib.py" />
-    <Compile Include="Balance_Measurement.py" />
-    <Compile Include="Data2LATEXLib.py" />
-    <Compile Include="DataManagementLib.py" />
-    <Compile Include="DataStorageLib.py" />
-    <Compile Include="examples\advanced_simulation.py" />
-    <Compile Include="examples\basic_simulation.py" />
-    <Compile Include="GUILib.py" />
-    <Compile Include="GUIMessageLib.py" />
-    <Compile Include="MettlerPG5002SBinder20260814.py" />
-    <Compile Include="ObjectManagementLib.py" />
-    <Compile Include="PlotLib.py" />
-    <Compile Include="ScaleBench.py" />
-    <Compile Include="SpecimentDataLib.py" />
-    <Compile Include="src\chute_de_blocs\geometry\rock.py" />
-    <Compile Include="src\chute_de_blocs\geometry\terrain.py" />
-    <Compile Include="src\chute_de_blocs\geometry\__init__.py" />
-    <Compile Include="src\chute_de_blocs\materials\rock_material.py" />
-    <Compile Include="src\chute_de_blocs\materials\terrain_material.py" />
-    <Compile Include="src\chute_de_blocs\materials\__init__.py" />
-    <Compile Include="src\chute_de_blocs\mechanics\contact.py" />
-    <Compile Include="src\chute_de_blocs\mechanics\dynamics.py" />
-    <Compile Include="src\chute_de_blocs\mechanics\rebound.py" />
-    <Compile Include="src\chute_de_blocs\mechanics\__init__.py" />
-    <Compile Include="src\chute_de_blocs\simulation\trajectory.py" />
-    <Compile Include="src\chute_de_blocs\simulation\__init__.py" />
-    <Compile Include="src\chute_de_blocs\visualization\plot.py" />
-    <Compile Include="src\chute_de_blocs\visualization\__init__.py" />
-    <Compile Include="src\chute_de_blocs\__init__.py" />
-    <Compile Include="Test.py" />
-    <Compile Include="TestDataStorage.py" />
-    <Compile Include="TestLogging.py" />
-    <Compile Include="tests\test_bloc.py" />
-    <Compile Include="tests\test_geometry.py" />
-    <Compile Include="tests\test_materials.py" />
-    <Compile Include="tests\test_simulation.py" />
-    <Compile Include="TimeLib.py" />
+    <Compile Include="src\balance_measurement\BalanceLib.py" />
+    <Compile Include="examples\Balance_Measurement.py" />
+    <Compile Include="examples\DataManagementLib.py" />
+    <Compile Include="src\balance_measurement\data_record\DataStorageLib.py" />
+    <Compile Include="src\balance_measurement\gui\GUILib.py" />
+    <Compile Include="src\balance_measurement\latex_report\Data2LATEXLib.py" />
+    <Compile Include="src\balance_measurement\latex_report\__init__.py" />
+    <Compile Include="src\balance_measurement\logging\GUIMessageLib.py" />
+    <Compile Include="examples\MettlerPG5002SBinder20260814.py" />
+    <Compile Include="src\balance_measurement\time\__init__.py" />
+    <Compile Include="src\balance_measurement\utils\ObjectManagementLib.py" />
+    <Compile Include="src\balance_measurement\scale\ScaleBench.py" />
+    <Compile Include="src\balance_measurement\latex_report\SpecimentDataLib.py" />
+    <Compile Include="src\balance_measurement\scale\__init__.py" />
+    <Compile Include="src\balance_measurement\data_record\__init__.py" />
+    <Compile Include="src\balance_measurement\gui\__init__.py" />
+    <Compile Include="src\balance_measurement\logging\__init__.py" />
+    <Compile Include="src\balance_measurement\utils\__init__.py" />
+    <Compile Include="src\balance_measurement\visualization\plot_2d.py" />
+    <Compile Include="src\balance_measurement\visualization\plot_3d.py" />
+    <Compile Include="src\balance_measurement\visualization\plot_basic.py" />
+    <Compile Include="src\balance_measurement\visualization\plot_board.py" />
+    <Compile Include="src\balance_measurement\visualization\plot_parameters.py" />
+    <Compile Include="src\balance_measurement\visualization\__init__.py" />
+    <Compile Include="src\balance_measurement\__init__.py" />
+    <Compile Include="tests\Test.py" />
+    <Compile Include="tests\TestDataStorage.py" />
+    <Compile Include="tests\TestLogging.py" />
+    <Compile Include="src\balance_measurement\time\TimeLib.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CITATION.cff" />
     <Content Include="LICENSE" />
-    <Content Include="LogoUEE.png" />
+    <Content Include="src\balance_measurement\latex_report\LogoUEE.png" />
     <Content Include="pyproject.toml" />
     <Content Include="README.md" />
     <Content Include="requirements-dev.txt" />
     <Content Include="requirements.txt" />
-    <Content Include="template_Specimen Test Data Sheet Supplementary.tex" />
-    <Content Include="template_Specimen Test Data Sheet.tex" />
+    <Content Include="src\balance_measurement\latex_report\template_Specimen Test Data Sheet Supplementary.tex" />
+    <Content Include="src\balance_measurement\latex_report\template_Specimen Test Data Sheet.tex" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="docs\" />
     <Folder Include="examples\" />
     <Folder Include="src\" />
-    <Folder Include="src\chute_de_blocs\" />
-    <Folder Include="src\chute_de_blocs\geometry\" />
-    <Folder Include="src\chute_de_blocs\materials\" />
-    <Folder Include="src\chute_de_blocs\mechanics\" />
-    <Folder Include="src\chute_de_blocs\simulation\" />
-    <Folder Include="src\chute_de_blocs\visualization\" />
+    <Folder Include="src\balance_measurement\" />
+    <Folder Include="src\balance_measurement\latex_report\" />
+    <Folder Include="src\balance_measurement\time\" />
+    <Folder Include="src\balance_measurement\utils\" />
+    <Folder Include="src\balance_measurement\scale\" />
+    <Folder Include="src\balance_measurement\data_record\" />
+    <Folder Include="src\balance_measurement\gui\" />
+    <Folder Include="src\balance_measurement\logging\" />
+    <Folder Include="src\balance_measurement\visualization\" />
     <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

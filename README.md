@@ -1,6 +1,6 @@
 # Balance Measurement
 
-Balance-Measurement is a Python project for communicating with and acquiring measurements from RS-232/USB bench scales.
+balance_measurement is a Python project for communicating with and acquiring measurements from RS-232/USB bench scales.
 
 ## Disclaimer
 
@@ -22,8 +22,8 @@ Development and testing dependencies are listed separately in `requirements-dev.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Thomeli09/Balance-Measurement.git
-cd Balance-Measurement
+git clone https://github.com/Thomeli09/balance_measurement.git
+cd balance_measurement
 ```
 
 ### 2. Install the required dependencies
@@ -70,7 +70,7 @@ If you plan to make a significant change, consider opening an issue first to dis
 
 ## Citation
 
-If you use Balance-Measurement in academic, scientific, technical, or published work, please cite the project.
+If you use balance_measurement in academic, scientific, technical, or published work, please cite the project.
 
 Citation metadata is available in [`CITATION.cff`](CITATION.cff).
 
@@ -79,10 +79,10 @@ A BibTeX citation can also be written as:
 ```bibtex
 @software{Thommes_BalanceMeasurement_2026,
   author       = {Thommes, Eliott},
-  title        = {Balance-Measurement: Python driver for RS-232/USB bench scales},
+  title        = {balance_measurement: Python driver for RS-232/USB bench scales},
   year         = {2026},
   version      = {0.0.1},
-  url          = {https://github.com/Thomeli09/Balance-Measurement}
+  url          = {https://github.com/Thomeli09/balance_measurement}
 }
 ```
 
@@ -91,7 +91,7 @@ ORCID: [0009-0005-0697-2438](https://orcid.org/0009-0005-0697-2438)
 
 ## License
 
-Balance-Measurement is licensed under the MIT License.
+balance_measurement is licensed under the MIT License.
 
 Copyright © 2026 Eliott Thommes.
 

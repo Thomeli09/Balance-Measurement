@@ -1,6 +1,1 @@
-numpy
-pandas
-rich
-matplotlib
-highlight-text
-pyserial
+-e .
