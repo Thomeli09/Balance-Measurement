@@ -46,9 +46,10 @@
     <Compile Include="src\balance_measurement\visualization\plot_parameters.py" />
     <Compile Include="src\balance_measurement\visualization\__init__.py" />
     <Compile Include="src\balance_measurement\__init__.py" />
-    <Compile Include="tests\Test.py" />
-    <Compile Include="tests\TestDataStorage.py" />
-    <Compile Include="tests\TestLogging.py" />
+    <Compile Include="tests\test.py" />
+    <Compile Include="tests\test_storage.py" />
+    <Compile Include="tests\test_storageCSV.py" />
+    <Compile Include="tests\test_logging.py" />
     <Compile Include="src\balance_measurement\time\TimeLib.py" />
   </ItemGroup>
   <ItemGroup>
