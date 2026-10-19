@@ -10,41 +10,83 @@ Before using it in laboratory, industrial, safety-critical, or regulated environ
 
 The author is not responsible for incorrect measurements, data loss, equipment damage, or other consequences resulting from the use of this software.
 
+## Features
+
 ## Requirements
 
-* Python 3.12
-* Additional Python packages listed in `requirements.txt`
-
-Development and testing dependencies are listed separately in `requirements-dev.txt`.
+- **Python 3.15 or later** (the declared supported version).
+- NumPy and Matplotlib, installed automatically by pip.
+- Development/testing tools are included in the optional `dev` extra.
 
 ## Installation
 
-### 1. Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/Thomeli09/balance_measurement.git
 cd balance_measurement
 ```
 
-### 2. Install the required dependencies
+Create a virtual environment (example commands for Windows PowerShell):
 
-Install the runtime dependencies with:
-
-```bash
-pip install -r requirements.txt
+```powershell
+py -3.15 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -e .
 ```
 
-### 3. Development installation
-
-Additional packages used for development, testing, documentation, and related tools are listed in `requirements-dev.txt`.
-
-Install the complete development environment with:
+On Linux/macOS, use `python3.15 -m venv .venv` and `source .venv/bin/activate`.
+Alternatively, `python -m pip install -r requirements.txt` installs the editable
+package. To install development dependencies:
 
 ```bash
-pip install -r requirements-dev.txt
+python -m pip install -e ".[dev]"
+# Or: python -m pip install -r requirements-dev.txt
 ```
 
-The development requirements include the packages from `requirements.txt`, so developers only need to install `requirements-dev.txt`.
+To run the tests:
+
+```bash
+python -m pytest -q
+```
+
+For a regular non-editable installation, use `python -m pip install .`.
+
+## Repository layout
+
+```text
+src/balance_measurement/
+    __init__.py                # Public API
+    data_record/
+        data_record.py         # Data record class and methods
+    gui/                        # GUI components (if any)
+    latex_report/
+    logging/
+        logger.py              # Logging configuration and helpers
+    scale/
+        scale.py               # Scale communication and measurement classes
+        scale_abc.py           # Abstract base class for scales
+        scale_exceptions.py    # Scale-related exceptions
+    time/
+        time_utils.py          # Time-related utilities
+    utils/                     # Reused generic data tools
+    visualization/
+        plot_parameters.py     # Shared plotting configuration
+        plot_basic.py          # Figures and formatting
+        plot_2d.py             # General 2D plot helpers
+        plot_board.py          # Voltorb-specific heatmaps
+    balance_lib.py                 # Balance-specific algorithms and helpers
+examples/                       # Runnable scripts
+    MettlerToledo_RS232_example.py  # Example for Mettler Toledo RS-232 balance
+tests/                          # Automated tests
+```
+## Quick start
+
+```python
+from balance_measurement import Scale
+```
+## Examples and tests
 
 ## Usage
 
@@ -81,7 +123,7 @@ A BibTeX citation can also be written as:
   author       = {Thommes, Eliott},
   title        = {balance_measurement: Python driver for RS-232/USB bench scales},
   year         = {2026},
-  version      = {0.0.1},
+  version      = {0.0.2},
   url          = {https://github.com/Thomeli09/balance_measurement}
 }
 ```

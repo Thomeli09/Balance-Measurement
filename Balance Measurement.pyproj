@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CITATION.cff" />
-    <Content Include="LICENSE" />
+    <Content Include="LICENSE">
+      <Publish>False</Publish>
+    </Content>
     <Content Include="src\balance_measurement\latex_report\LogoUEE.png" />
     <Content Include="pyproject.toml" />
     <Content Include="README.md" />
