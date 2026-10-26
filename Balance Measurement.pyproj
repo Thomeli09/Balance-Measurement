@@ -61,8 +61,6 @@
     <Compile Include="tests\test_logging.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitattributes" />
-    <Content Include=".gitignore" />
     <Content Include="CHANGELOG.md" />
     <Content Include="CITATION.cff" />
     <Content Include="docs\ARCHITECTURE.md" />
