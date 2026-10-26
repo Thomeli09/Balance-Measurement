@@ -27,3 +27,10 @@ dist/
 .vs/
 .idea/
 .vscode/
+
+# Real measurement output
+measurements/
+data/output/
+
+# Keep CSV test fixtures tracked
+!tests/fixtures/*.csv
