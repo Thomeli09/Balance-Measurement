@@ -1,20 +1,34 @@
+"""In-memory fake RS232 port. No real hardware required."""
+
+from __future__ import annotations
+
+from collections import deque
+from collections.abc import Iterable
+
 import pytest
 
 
-def pytest_addoption(parser):
-    parser.addoption(
-        "--run-hardware",
-        action="store_true",
-        default=False,
-        help="run tests that require a connected physical scale",
-    )
+class FakeTransport:
+    def __init__(self, lines: Iterable[bytes] = ()) -> None:
+        self.lines = deque(lines)
+        self.writes: list[bytes] = []
+        self.is_open = False
+
+    def open(self) -> None:
+        self.is_open = True
+
+    def write(self, data: bytes) -> None:
+        if not self.is_open:
+            raise RuntimeError("Port closed")
+        self.writes.append(data)
+
+    def readline(self) -> bytes:
+        return self.lines.popleft() if self.lines else b""
+
+    def close(self) -> None:
+        self.is_open = False
 
 
-def pytest_collection_modifyitems(config, items):
-    if config.getoption("--run-hardware"):
-        return
-
-    skip_hardware = pytest.mark.skip(reason="requires --run-hardware and a connected scale")
-    for item in items:
-        if "hardware" in item.keywords:
-            item.add_marker(skip_hardware)
+@pytest.fixture
+def fake_transport():
+    return FakeTransport

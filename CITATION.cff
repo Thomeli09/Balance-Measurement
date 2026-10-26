@@ -1,29 +1,15 @@
 cff-version: 1.2.0
-message: >-
-  If you use this software in scientific, educational, or published work,
-  please cite it using the metadata from this file.
+message: "If you use this research software, cite this reference."
 type: software
-title: >-
-  Balance-Measurement: Python driver for RS-232/USB bench
-  scales
+title: "Balance Measurement: Modular RS232 laboratory scale acquisition"
 authors:
   - family-names: Thommes
     given-names: Eliott
     orcid: https://orcid.org/0009-0005-0697-2438
-version: 0.0.2
-date-released: 2026-09-15
+version: 0.2.0
 license: MIT
 repository-code: https://github.com/Thomeli09/Balance-Measurement
-url: https://github.com/Thomeli09/Balance-Measurement
 keywords:
   - Python
-
-
-# Zenodo integration (optional):
-# 1. Enable the Zenodo webhook at zenodo.org/account/settings/github
-# 2. After first tag release, copy the concept DOI from Zenodo and add:
-#
-# identifiers:
-#   - type: doi
-#     value: 10.5281/zenodo.XXXXXXX
-#     description: Zenodo concept DOI (resolves to latest version)
+  - RS232
+  - laboratory measurement

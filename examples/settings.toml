@@ -1,0 +1,23 @@
+# Adjust the instrument's serial settings and read terminator to match its manual.
+protocol = "mettler-toledo"  # "a-and-d" or "legacy-multiline"
+scale_id = "lab-scale-1"
+outputs = ["../data/weights.csv", "../data/weights.jsonl", "../data/weights.sqlite3"]
+
+[serial]
+port = "COM3"
+baudrate = 9600
+bytesize = 8
+parity = "N"
+stopbits = 1
+timeout = 1.0
+response_terminator = "\\n"  # Set "\\r" for CR-only instruments.
+
+[acquisition]
+count = 100
+interval_seconds = 0.5
+stable_only = false
+timeout_policy = "skip"
+
+[acquisition.metadata]
+experiment = "drying-chamber-01"
+specimen_id = "S001"

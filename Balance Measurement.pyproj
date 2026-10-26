@@ -21,60 +21,77 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\balance_measurement\BalanceLib.py" />
-    <Compile Include="examples\Balance_Measurement.py" />
-    <Compile Include="src\balance_measurement\data_record\DataStorageLib.py" />
-    <Compile Include="src\balance_measurement\gui\GUILib.py" />
-    <Compile Include="src\balance_measurement\latex_report\Data2LATEXLib.py" />
-    <Compile Include="src\balance_measurement\latex_report\__init__.py" />
-    <Compile Include="src\balance_measurement\logging\GUIMessageLib.py" />
-    <Compile Include="examples\MettlerPG5002SBinder20260814.py" />
-    <Compile Include="src\balance_measurement\time\__init__.py" />
-    <Compile Include="src\balance_measurement\scale\ScaleBench.py" />
-    <Compile Include="src\balance_measurement\latex_report\SpecimentDataLib.py" />
-    <Compile Include="src\balance_measurement\scale\__init__.py" />
-    <Compile Include="src\balance_measurement\data_record\__init__.py" />
-    <Compile Include="src\balance_measurement\gui\__init__.py" />
-    <Compile Include="src\balance_measurement\logging\__init__.py" />
-    <Compile Include="src\balance_measurement\utils\__init__.py" />
-    <Compile Include="src\balance_measurement\visualization\plot_2d.py" />
-    <Compile Include="src\balance_measurement\visualization\plot_3d.py" />
-    <Compile Include="src\balance_measurement\visualization\plot_basic.py" />
-    <Compile Include="src\balance_measurement\visualization\plot_parameters.py" />
-    <Compile Include="src\balance_measurement\visualization\__init__.py" />
+    <Compile Include="examples\custom_protocol.py" />
+    <Compile Include="examples\multiscale.py" />
+    <Compile Include="examples\specimen_report.py" />
+    <Compile Include="src\balance_measurement\acquisition.py" />
+    <Compile Include="src\balance_measurement\analysis.py" />
+    <Compile Include="src\balance_measurement\app_logging.py" />
+    <Compile Include="src\balance_measurement\cli.py" />
+    <Compile Include="src\balance_measurement\client.py" />
+    <Compile Include="src\balance_measurement\config.py" />
+    <Compile Include="src\balance_measurement\data_processing.py" />
+    <Compile Include="src\balance_measurement\domain.py" />
+    <Compile Include="src\balance_measurement\exceptions.py" />
+    <Compile Include="src\balance_measurement\gui.py" />
+    <Compile Include="src\balance_measurement\plotting.py" />
+    <Compile Include="src\balance_measurement\protocols\and_weighing.py" />
+    <Compile Include="src\balance_measurement\protocols\base.py" />
+    <Compile Include="src\balance_measurement\protocols\legacy_multiline.py" />
+    <Compile Include="src\balance_measurement\protocols\mettler_toledo.py" />
+    <Compile Include="src\balance_measurement\protocols\registry.py" />
+    <Compile Include="src\balance_measurement\protocols\__init__.py" />
+    <Compile Include="src\balance_measurement\reporting.py" />
+    <Compile Include="src\balance_measurement\storage\base.py" />
+    <Compile Include="src\balance_measurement\storage\csv_recorder.py" />
+    <Compile Include="src\balance_measurement\storage\io.py" />
+    <Compile Include="src\balance_measurement\storage\jsonl_recorder.py" />
+    <Compile Include="src\balance_measurement\storage\json_recorder.py" />
+    <Compile Include="src\balance_measurement\storage\sqlite_recorder.py" />
+    <Compile Include="src\balance_measurement\storage\__init__.py" />
+    <Compile Include="src\balance_measurement\timing.py" />
+    <Compile Include="src\balance_measurement\transport\base.py" />
+    <Compile Include="src\balance_measurement\transport\serial.py" />
+    <Compile Include="src\balance_measurement\transport\__init__.py" />
     <Compile Include="src\balance_measurement\__init__.py" />
+    <Compile Include="src\balance_measurement\__main__.py" />
     <Compile Include="tests\test.py" />
     <Compile Include="tests\test_storage.py" />
     <Compile Include="tests\test_storageCSV.py" />
     <Compile Include="tests\test_logging.py" />
-    <Compile Include="src\balance_measurement\time\TimeLib.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
+    <Content Include="CHANGELOG.md" />
     <Content Include="CITATION.cff" />
+    <Content Include="docs\ARCHITECTURE.md" />
+    <Content Include="docs\CONVENTIONS.md" />
+    <Content Include="docs\FEATURE_COVERAGE.md" />
+    <Content Include="docs\HARDWARE_VALIDATION.md" />
+    <Content Include="docs\MIGRATION.md" />
+    <Content Include="examples\settings.toml" />
     <Content Include="LICENSE">
       <Publish>False</Publish>
     </Content>
-    <Content Include="src\balance_measurement\latex_report\LogoUEE.png" />
+    <Content Include="resources\original_report_templates\LogoUEE.png" />
+    <Content Include="resources\original_report_templates\template_Specimen Test Data Sheet Supplementary.tex" />
+    <Content Include="resources\original_report_templates\template_Specimen Test Data Sheet.tex" />
     <Content Include="pyproject.toml" />
     <Content Include="README.md" />
     <Content Include="requirements-dev.txt" />
     <Content Include="requirements.txt" />
-    <Content Include="src\balance_measurement\latex_report\template_Specimen Test Data Sheet Supplementary.tex" />
-    <Content Include="src\balance_measurement\latex_report\template_Specimen Test Data Sheet.tex" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="docs\" />
     <Folder Include="examples\" />
+    <Folder Include="resources\" />
+    <Folder Include="resources\original_report_templates\" />
     <Folder Include="src\" />
     <Folder Include="src\balance_measurement\" />
-    <Folder Include="src\balance_measurement\latex_report\" />
-    <Folder Include="src\balance_measurement\time\" />
-    <Folder Include="src\balance_measurement\utils\" />
-    <Folder Include="src\balance_measurement\scale\" />
-    <Folder Include="src\balance_measurement\data_record\" />
-    <Folder Include="src\balance_measurement\gui\" />
-    <Folder Include="src\balance_measurement\logging\" />
-    <Folder Include="src\balance_measurement\visualization\" />
+    <Folder Include="src\balance_measurement\protocols\" />
+    <Folder Include="src\balance_measurement\storage\" />
+    <Folder Include="src\balance_measurement\transport\" />
     <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
