@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Protocol
 
-from ..domain import Measurement
+from balance_measurement.core.models import Measurement
 
 
 class Recorder(Protocol):

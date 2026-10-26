@@ -4,10 +4,10 @@ from decimal import Decimal
 
 import pytest
 
-from balance_measurement.analysis import summarize
-from balance_measurement.domain import Measurement, Specimen
+from balance_measurement.data.analysis import summarize
+from balance_measurement.core.models import Measurement, Specimen
 from balance_measurement.reporting import escape_latex, latex_report, markdown_report, save_report
-from balance_measurement.timing import Stopwatch
+from balance_measurement.times.stopwatch import Stopwatch
 
 
 def m(value, unit="g", stable=True):

@@ -8,8 +8,8 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 from typing import Any
 
-from ..domain import Measurement
-from .base import FileRecorder
+from balance_measurement.core.models import Measurement
+from balance_measurement.storage.base import FileRecorder
 
 
 class JSONRecorder(FileRecorder):

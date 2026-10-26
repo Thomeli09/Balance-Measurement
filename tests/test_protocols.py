@@ -4,8 +4,8 @@ from decimal import Decimal
 
 import pytest
 
-from balance_measurement.exceptions import ProtocolError, UnsupportedOperationError
-from balance_measurement.protocols import (
+from balance_measurement.core.exceptions import ProtocolError, UnsupportedOperationError
+from balance_measurement.scale.protocols import (
     ADWeighingProtocol, LegacyMultilineProtocol, MettlerToledoProtocol,
     Reading, default_registry,
 )

@@ -4,9 +4,9 @@ import os
 
 import pytest
 
-from balance_measurement.client import ScaleClient
-from balance_measurement.protocols import default_registry
-from balance_measurement.transport import SerialSettings, SerialTransport
+from balance_measurement.scale.client import ScaleClient
+from balance_measurement.scale.protocols import default_registry
+from balance_measurement.scale.transport import SerialSettings, SerialTransport
 
 
 @pytest.mark.hardware

@@ -2,7 +2,7 @@
 
 import pytest
 
-from balance_measurement.transport import SerialSettings, SerialTransport
+from balance_measurement.scale.transport import SerialSettings, SerialTransport
 
 
 @pytest.mark.parametrize("changes", [
@@ -25,7 +25,7 @@ def test_serial_transport_with_fake_pyserial(monkeypatch):
     import sys
     import types
 
-    from balance_measurement.exceptions import TransportError
+    from balance_measurement.core.exceptions import TransportError
 
     class FakeSerialException(Exception):
         pass

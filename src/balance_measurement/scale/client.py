@@ -7,16 +7,16 @@ from datetime import datetime, timezone
 from collections.abc import Iterator
 from typing import Any
 
-from .domain import Measurement
-from .exceptions import (
+from balance_measurement.core.models import Measurement
+from balance_measurement.core.exceptions import (
     CommandRejectedError,
     CommandTimeoutError,
     ConnectionError,
     ReadTimeoutError,
     TransportError,
 )
-from .protocols import ScaleProtocol
-from .transport import LineTransport
+from balance_measurement.scale.protocols import ScaleProtocol
+from balance_measurement.scale.transport import LineTransport
 
 
 class ScaleClient:

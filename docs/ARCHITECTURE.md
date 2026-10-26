@@ -23,26 +23,28 @@ Measurement (decimal, timestamp, stability, metadata)
 commands. Sessions schedule work. Recorders persist domain objects.** No
 vendor-specific parsing is located in transport, GUI or recorders.
 
-| Module | Purpose | Major API |
+| Subpackage | Responsibility | Examples |
 |---|---|---|
-| `domain.py` | Validated measurement/specimen models | `Measurement`, `Specimen` |
-| `transport/` | Byte communications + serial settings | `LineTransport`, `SerialTransport` |
-| `protocols/` | Manufacturer command grammar and parsers | `ScaleProtocol`, `ProtocolRegistry` |
-| `client.py` | Send commands, receive weight/acks | `ScaleClient` |
-| `acquisition.py` | Acquisition loops and concurrent instruments | `AcquisitionSession`, `MultiScaleRunner` |
-| `storage/` | Writers and readers | `Recorder`, `RecorderRegistry`, `load_measurements` |
-| `config.py` | Parse TOML settings | `AppConfig`, `load_config` |
-| `analysis.py` | Numeric summaries | `summarize` (one scale and one unit at a time) |
-| `data_processing.py` | Filtering/conversion/mass-loss | `convert_mass`, etc. |
-| `plotting.py` | Optional visualization | `plot_measurements` |
-| `reporting.py` | Markdown/LaTeX reports | `markdown_report`, `latex_report` |
-| `timing.py` | Monotonic stopwatch | `Stopwatch` |
-| `app_logging.py` | Centralized logging | `configure_logging` |
-| `cli.py`, `gui.py` | Front-end interfaces | CLI, Tkinter |
+| `core/` | Immutable measurement and specimen models; application errors | `Measurement`, `Specimen`, `BalanceError` |
+| `scale/transport/` | RS-232 byte transport and serial settings | `LineTransport`, `SerialTransport` |
+| `scale/protocols/` | Manufacturer commands and ASCII response parsing | `ScaleProtocol`, `ProtocolRegistry` |
+| `scale/client.py` | Coordinate commands/response acknowledgements | `ScaleClient` |
+| `acquisition/` | Acquisition loops and multi-scale sessions | `AcquisitionSession`, `MultiScaleRunner` |
+| `storage/` | Writers/readers of measurement files | `Recorder`, `load_measurements` |
+| `config/` | Parse TOML configuration | `AppConfig`, `load_config` |
+| `data/` | Summaries, filtering, unit conversion and mass-loss | `summarize`, `convert_mass` |
+| `visualization/` | Optional time-series visualization | `plot_measurements` |
+| `reporting/` | Markdown and LaTeX reports | `markdown_report`, `latex_report` |
+| `times/` | Monotonic stopwatch | `Stopwatch` |
+| `logging/` | Standard logging setup | `configure_logging` |
+| `interfaces/` | End-user entry points | CLI and Tkinter GUI |
+| `utils/` | Small reusable parsing helpers | `decimal_from_device` |
+
+Python subpackage imports are documented in [MIGRATION_V0.2_TO_V0.3.md](MIGRATION_V0.2_TO_V0.3.md).
 
 ### Add a protocol
 
-Subclass `ScaleProtocol` in `protocols/my_brand.py` and define:
+Subclass `ScaleProtocol` in `scale/protocols/my_brand.py` and define:
 
 - `name`, `read_command` (`bytes` including delimiter), optionally `tare_command`
   and `zero_command`, and `max_response_lines`.

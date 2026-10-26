@@ -1,5 +1,6 @@
-"""Enable python -m balance_measurement."""
+"""Run the command-line interface using ``python -m balance_measurement``."""
 
-from .cli import main
+from .interfaces.cli import main
 
-raise SystemExit(main())
+if __name__ == "__main__":
+    raise SystemExit(main())

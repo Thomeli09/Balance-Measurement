@@ -1,12 +1,18 @@
-"""Modern scale measurement, acquisition, and recording toolkit."""
+"""Extensible Python toolkit for serial weighing instruments."""
 
-from .client import ScaleClient
-from .domain import Measurement, Specimen
-from .protocols import ADWeighingProtocol, MettlerToledoProtocol, default_registry
-from .transport import SerialSettings, SerialTransport
+from .acquisition import AcquisitionSession, AcquisitionSettings
+from .core.models import Measurement, Specimen
+from .scale import (
+    ADWeighingProtocol,
+    MettlerToledoProtocol,
+    ScaleClient,
+    SerialSettings,
+    SerialTransport,
+    default_registry,
+)
 
-__version__ = "0.2.0"
 __all__ = [
-    "ADWeighingProtocol", "Measurement", "MettlerToledoProtocol", "ScaleClient",
-    "SerialSettings", "SerialTransport", "Specimen", "default_registry",
+    "AcquisitionSession", "AcquisitionSettings", "Measurement", "Specimen",
+    "ScaleClient", "SerialSettings", "SerialTransport",
+    "ADWeighingProtocol", "MettlerToledoProtocol", "default_registry",
 ]

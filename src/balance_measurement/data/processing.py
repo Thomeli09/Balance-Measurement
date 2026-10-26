@@ -7,7 +7,7 @@ from collections.abc import Iterable, Iterator
 from dataclasses import replace
 from decimal import Decimal
 
-from .domain import Measurement
+from balance_measurement.core.models import Measurement
 
 _MASS_TO_GRAMS = {
     "µg": Decimal("0.000001"),

@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import re
 
-from ..domain import decimal_from_device
-from ..exceptions import ProtocolError
-from .base import Reading, ScaleProtocol
+from balance_measurement.utils.decimals import decimal_from_device
+from balance_measurement.core.exceptions import ProtocolError
+from balance_measurement.scale.protocols.base import Reading, ScaleProtocol
 
 _FRAME = re.compile(
     r"^(?:GS|NT|GT)\s+(?P<number>[+-]?(?:\d+(?:\.\d*)?|\.\d+))\s+(?P<unit>\S+)$"

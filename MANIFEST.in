@@ -1,0 +1,7 @@
+include README.md LICENSE CITATION.cff CHANGELOG.md
+include requirements.txt requirements-dev.txt
+recursive-include docs *.md
+recursive-include examples *.py *.toml
+recursive-include resources *
+recursive-include tests *.py
+recursive-include .github/workflows *.yml

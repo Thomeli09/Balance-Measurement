@@ -3,9 +3,9 @@
 import logging
 from decimal import Decimal
 
-from balance_measurement.app_logging import configure_logging
-from balance_measurement.domain import Measurement
-from balance_measurement.plotting import plot_measurements
+from balance_measurement.logging.setup import configure_logging
+from balance_measurement.core.models import Measurement
+from balance_measurement.visualization.plots import plot_measurements
 
 
 def test_idempotent_logging_configuration(tmp_path):

@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from ..exceptions import ConnectionError, TransportError
+from balance_measurement.core.exceptions import ConnectionError, TransportError
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)

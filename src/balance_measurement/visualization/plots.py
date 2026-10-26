@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from pathlib import Path
 
-from .domain import Measurement
+from balance_measurement.core.models import Measurement
 
 
 def plot_measurements(

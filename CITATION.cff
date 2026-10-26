@@ -6,9 +6,9 @@ authors:
   - family-names: Thommes
     given-names: Eliott
     orcid: https://orcid.org/0009-0005-0697-2438
-version: 0.2.0
+version: 0.3.0
 license: MIT
-repository-code: https://github.com/Thomeli09/Balance-Measurement
+repository-code: https://github.com/Thomeli09/balance_measurement
 keywords:
   - Python
   - RS232

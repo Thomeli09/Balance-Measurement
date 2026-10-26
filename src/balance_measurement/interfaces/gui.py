@@ -8,11 +8,11 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
-from .acquisition import AcquisitionSession, AcquisitionSettings
-from .client import ScaleClient
-from .protocols import default_registry
-from .storage import default_recorder_registry
-from .transport import SerialSettings, SerialTransport
+from balance_measurement.acquisition import AcquisitionSession, AcquisitionSettings
+from balance_measurement.scale.client import ScaleClient
+from balance_measurement.scale.protocols import default_registry
+from balance_measurement.storage import default_recorder_registry
+from balance_measurement.scale.transport import SerialSettings, SerialTransport
 
 
 class AcquisitionWindow:

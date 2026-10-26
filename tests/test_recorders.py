@@ -4,7 +4,7 @@ from decimal import Decimal
 
 import pytest
 
-from balance_measurement.domain import Measurement
+from balance_measurement.core.models import Measurement
 from balance_measurement.storage import (
     MultiRecorder, default_recorder_registry, load_measurements,
 )

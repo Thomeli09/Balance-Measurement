@@ -7,8 +7,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from .acquisition import AcquisitionSettings
-from .transport import SerialSettings
+from balance_measurement.acquisition import AcquisitionSettings
+from balance_measurement.scale.transport import SerialSettings
 
 
 @dataclass(frozen=True, slots=True)

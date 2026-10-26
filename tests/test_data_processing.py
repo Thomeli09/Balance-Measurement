@@ -6,10 +6,10 @@ from decimal import Decimal
 
 import pytest
 
-from balance_measurement.data_processing import (
+from balance_measurement.data.processing import (
     convert_mass, filter_measurements, relative_mass_loss, split_by_scale,
 )
-from balance_measurement.domain import Measurement
+from balance_measurement.core.models import Measurement
 
 
 def item(value, **changes):

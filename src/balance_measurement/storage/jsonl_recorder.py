@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from ..domain import Measurement
-from .base import FileRecorder
+from balance_measurement.core.models import Measurement
+from balance_measurement.storage.base import FileRecorder
 
 
 class JSONLRecorder(FileRecorder):
