@@ -1,5 +1,8 @@
 # Balance Measurement
 
+[![Python](https://img.shields.io/badge/Python-3.15%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-GPL--3.0--or--later-blue)](LICENSE)
+
 balance_measurement is a Python project for communicating with and acquiring measurements from RS-232/USB bench scales.
 
 ## Disclaimer
