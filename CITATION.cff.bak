@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this research software, cite this reference."
+type: software
+title: "Balance Measurement: Modular RS232 laboratory scale acquisition"
+authors:
+  - family-names: Thommes
+    given-names: Eliott
+    orcid: https://orcid.org/0009-0005-0697-2438
+version: 0.2.0
+license: MIT
+repository-code: https://github.com/Thomeli09/Balance-Measurement
+keywords:
+  - Python
+  - RS232
+  - laboratory measurement

@@ -1,4 +1,4 @@
-# Balance Measurement — full rebuild
+# Balance Measurement
 
 [![Python](https://img.shields.io/badge/Python-3.15%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-GPL--3.0--or--later-blue)](LICENSE)
@@ -28,30 +28,90 @@ This version is a **new public API**, not a drop-in replacement for the original
   basic plotting, filtering, unit conversion, stopwatch and laboratory reports.
 - No pandas/numpy required for acquisition; plotting is optional.
 
-## Setup on Windows 11 using Python 3.15
+## Requirements
 
-```powershell
-# From the extracted project root
-py -3.15 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -e ".[dev,plot]"
-python -m pytest -q
-balance-measurement protocols
-balance-measurement ports
+- **Python 3.15 or later** (the declared supported version).
+- NumPy and Matplotlib, installed automatically by pip.
+- Development/testing tools are included in the optional `dev` extra.
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Thomeli09/balance_measurement.git
+cd balance_measurement
 ```
 
-Python 3.13+ is permitted by package metadata. CI defines jobs for 3.13, 3.14
-and 3.15; Python 3.15 and real hardware **have not been executed in the
-provided development environment**. Running this on your machine is an
-important remaining validation step.
+Create a virtual environment (example commands for Windows PowerShell):
 
-## Read one value
+```powershell
+py -3.15 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -e .
+```
+
+On Linux/macOS, use `python3.15 -m venv .venv` and `source .venv/bin/activate`.
+Alternatively, `python -m pip install -r requirements.txt` installs the editable
+package. To install development dependencies:
+
+```bash
+python -m pip install -e ".[dev]"
+# Or: python -m pip install -r requirements-dev.txt
+```
+
+To run the tests:
+
+```bash
+python -m pytest -q
+```
+
+The default test run only exercises code that does not need a physical scale.
+Hardware tests are marked and skipped unless explicitly requested. To run them,
+set the serial port (and optionally the baud rate and protocol), then use:
+
+```powershell
+$env:BALANCE_SCALE_PORT = "COM3"
+$env:BALANCE_SCALE_BAUDRATE = "9600"
+# Optional: set to 1 or 2 to skip protocol auto-detection.
+$env:BALANCE_SCALE_PROTOCOL = "1"
+python -m pytest -q --run-hardware -m hardware
+```
+
+On Linux/macOS, set the same `BALANCE_SCALE_*` environment variables in the
+shell before running pytest. Hardware tests only request a reading; they do not
+send tare or zero commands.
+
+For a regular non-editable installation, use `python -m pip install .`.
+
+## Repository layout
+
+```text
+src/balance_measurement/
+    __init__.py                 # Public package API
+    BalanceLib.py               # Balance management and measurement workflows
+    data_record/                 # CSV storage and data logging
+    gui/                         # GUI components
+    latex_report/                # Specimen metadata and report support
+    logging/                     # Application logging
+    scale/                       # Serial scale communication
+    time/                        # Time utilities and stopwatch
+    utils/                       # Shared utilities
+    visualization/               # Matplotlib figures and plot helpers
+examples/                        # Runnable example scripts
+tests/                           # Automated tests
+```
+
+## Quick start
+
+# Read one value
 
 ```powershell
 balance-measurement read --port COM3 --protocol mettler-toledo
 ```
 
-## Acquire and save 100 readings (two simultaneous formats)
+# Acquire and save 100 readings (two simultaneous formats)
 
 ```powershell
 balance-measurement capture --port COM3 --protocol mettler-toledo `
@@ -71,7 +131,7 @@ The CLI prints readings as they arrive and reports attempts, saves, timeouts,
 and unstable readings omitted. Use `--forever` for an unbounded capture; Ctrl+C ends acquisition safely.
 In the Python API, use `AcquisitionSettings(count=None)`.
 
-## Python API
+# Python API
 
 ```python
 from pathlib import Path
@@ -128,3 +188,48 @@ contains a hardware integration test, gated by `BALANCE_PORT` and
 
 The repository is intended for research measurement workflows, not validated
 industrial safety or legal-for-trade measurement applications.
+
+## Contributing
+
+Contributions are welcome.
+
+Examples of useful contributions include:
+
+* support for additional balances or communication protocols;
+* bug fixes;
+* improvements to serial communication handling;
+* additional tests;
+* documentation improvements;
+* usage examples;
+* compatibility improvements for different operating systems.
+
+If you plan to make a significant change, consider opening an issue first to discuss the proposed implementation.
+
+## Citation
+
+If you use balance_measurement in academic, scientific, technical, or published work, please cite the project.
+
+Citation metadata is available in [`CITATION.cff`](CITATION.cff).
+
+A BibTeX citation can also be written as:
+
+```bibtex
+@software{Thommes_BalanceMeasurement_2026,
+  author       = {Thommes, Eliott},
+  title        = {balance_measurement: Python driver for RS-232/USB bench scales},
+  year         = {2026},
+  version      = {0.0.2},
+  url          = {https://github.com/Thomeli09/balance_measurement}
+}
+```
+
+Author: **Eliott Thommes**
+ORCID: [0009-0005-0697-2438](https://orcid.org/0009-0005-0697-2438)
+
+## License
+
+balance_measurement is licensed under the MIT License.
+
+Copyright © 2026 Eliott Thommes.
+
+See the [`LICENSE`](LICENSE) file for the full license text.
