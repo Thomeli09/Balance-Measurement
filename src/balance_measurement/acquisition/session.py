@@ -9,10 +9,10 @@ from collections.abc import Callable, Iterator, Sequence
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-from .client import ScaleClient
-from .domain import Measurement
-from .exceptions import ReadTimeoutError
-from .storage import MultiRecorder, Recorder
+from balance_measurement.scale.client import ScaleClient
+from balance_measurement.core.models import Measurement
+from balance_measurement.core.exceptions import ReadTimeoutError
+from balance_measurement.storage import MultiRecorder, Recorder
 
 logger = logging.getLogger(__name__)
 

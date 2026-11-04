@@ -2,12 +2,12 @@
 
 import pytest
 
-from balance_measurement.client import ScaleClient
-from balance_measurement.exceptions import (
+from balance_measurement.scale.client import ScaleClient
+from balance_measurement.core.exceptions import (
     CommandRejectedError, CommandTimeoutError, ConnectionError, ProtocolError,
     ReadTimeoutError,
 )
-from balance_measurement.protocols import ADWeighingProtocol, MettlerToledoProtocol
+from balance_measurement.scale.protocols import ADWeighingProtocol, MettlerToledoProtocol
 
 
 def test_client_read(fake_transport):
@@ -67,7 +67,7 @@ def test_unconfirmed_tare_not_silent_success(fake_transport):
 
 
 def test_read_can_reconnect_without_repeating_tare(fake_transport):
-    from balance_measurement.exceptions import TransportError
+    from balance_measurement.core.exceptions import TransportError
     from decimal import Decimal
 
     class FlakyPort:

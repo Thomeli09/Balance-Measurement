@@ -10,15 +10,15 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Sequence
 
-from .acquisition import AcquisitionSession
-from .analysis import summarize
-from .app_logging import configure_logging
-from .client import ScaleClient
-from .config import AppConfig, load_config
-from .exceptions import BalanceError
-from .protocols import default_registry
-from .storage import default_recorder_registry, load_measurements
-from .transport import SerialSettings, SerialTransport, list_serial_ports
+from balance_measurement.acquisition import AcquisitionSession
+from balance_measurement.data.analysis import summarize
+from balance_measurement.logging.setup import configure_logging
+from balance_measurement.scale.client import ScaleClient
+from balance_measurement.config import AppConfig, load_config
+from balance_measurement.core.exceptions import BalanceError
+from balance_measurement.scale.protocols import default_registry
+from balance_measurement.storage import default_recorder_registry, load_measurements
+from balance_measurement.scale.transport import SerialSettings, SerialTransport, list_serial_ports
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -113,7 +113,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(f"{name}: {getattr(info, name)}")
             return 0
         if args.command == "plot":
-            from .plotting import plot_measurements
+            from balance_measurement.visualization import plot_measurements
 
             print(plot_measurements(load_measurements(args.file), args.output))
             return 0

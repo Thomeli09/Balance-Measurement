@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.0 — reorganized source and developer experience (2026-10-26)
+
+- Grouped Python modules into purposeful packages: `core`, `scale`, `acquisition`,
+  `storage`, `data`, `config`, `times`, `logging`, `visualization`, `reporting`,
+  `interfaces`, and `utils`.
+- Moved manufacturer protocols and serial transport under `scale/`;
+  retained the existing recorder implementations and high-level public API.
+- Rewrote internal imports, tests, examples, and application entry point.
+- Expanded README to match the original repository documentation style.
+- Added editable `requirements.txt` and `requirements-dev.txt` backed by
+  optional dependency definitions in `pyproject.toml`.
+- Documented old-to-new imports and the module ownership/contribution rules.
+- Kept CI non-mutating by running Ruff lint rather than rewriting code.
+
+
 ## 0.2.0 — fresh implementation (2026-10-22)
 
 - Replaced old monolithic classes by independent, typed modules.

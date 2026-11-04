@@ -17,10 +17,10 @@ independent writer instances from `default_recorder_registry()`.
 
 ```python
 from balance_measurement.acquisition import AcquisitionSession, AcquisitionSettings
-from balance_measurement.client import ScaleClient
-from balance_measurement.protocols import MettlerToledoProtocol
+from balance_measurement.scale import ScaleClient
+from balance_measurement.scale.protocols import MettlerToledoProtocol
 from balance_measurement.storage import default_recorder_registry
-from balance_measurement.transport import SerialSettings, SerialTransport
+from balance_measurement.scale.transport import SerialSettings, SerialTransport
 
 client = ScaleClient(
     SerialTransport(SerialSettings(port="COM3", baudrate=9600)),
@@ -40,7 +40,7 @@ with AcquisitionSession(client, [writer], AcquisitionSettings(count=100)) as ses
 | `AutoReconSerialScale` | `read_with_reconnect()` and `AcquisitionSettings.reconnect_attempts` | Read-only retry, not control commands |
 | `getWeightStable`, `getWeightRepeated` | `stable_only`, `collect()` | Different scheduling and return types |
 | `StorageCSV`, `StorageJSON` | `CSVRecorder`, `JSONRecorder` | Plus JSONL/SQLite; common writer interface |
-| `DataLog` processing | `load_measurements`, `summarize`, `data_processing` | **Not fully equivalent** for arbitrary matrices |
+| `DataLog` processing | `load_measurements`, `summarize`, `data.processing` | **Not fully equivalent** for arbitrary matrices |
 | `MessageManager` | Python `logging`, `configure_logging()` | No logger attached to every data model |
 | `TimeLib.Chrono` | `Stopwatch` | Monotonic timer |
 | `SpecimenData` | `Specimen` | Simpler model |
@@ -69,3 +69,5 @@ visualization boundaries. `Measurement.to_dict()` uses a **string** for
 5. Compare the same reference mass and timestamps in old and new acquisition.
 6. For analysis/plotting, port old specialized data processing one function at
    a time against known expected output; do not assume automatic parity.
+
+For migration from the **v0.2.0 rebuilt project**, rather than the original monolithic project, see [MIGRATION_V0.2_TO_V0.3.md](MIGRATION_V0.2_TO_V0.3.md).

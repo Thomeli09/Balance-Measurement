@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 
-from balance_measurement.protocols import Reading, ScaleProtocol
+from balance_measurement.scale.protocols import Reading, ScaleProtocol
 
 
 class MyScaleProtocol(ScaleProtocol):

@@ -5,8 +5,8 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .analysis import Summary
-from .domain import Specimen
+from balance_measurement.data.analysis import Summary
+from balance_measurement.core.models import Specimen
 
 
 def markdown_report(specimen: Specimen, summary: Summary) -> str:

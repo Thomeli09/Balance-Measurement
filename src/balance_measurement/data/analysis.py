@@ -7,7 +7,7 @@ from decimal import Decimal
 from statistics import mean, stdev
 from typing import Iterable
 
-from .domain import Measurement
+from balance_measurement.core.models import Measurement
 
 
 @dataclass(frozen=True, slots=True)

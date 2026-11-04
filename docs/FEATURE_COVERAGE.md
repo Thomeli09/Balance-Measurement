@@ -7,8 +7,8 @@ This is a new implementation of the intended workflow, **not an assertion of
 
 | Area in original | New project | Status |
 |---|---|---|
-| RS232 read/write/connection | `transport`, `client` | Rebuilt; hardware verification pending |
-| Mettler Toledo and A&D commands | `protocols` | Rebuilt; model-specific verification pending |
+| RS232 read/write/connection | `scale/transport`, `scale/client.py` | Rebuilt; hardware verification pending |
+| Mettler Toledo and A&D commands | `scale/protocols` | Rebuilt; model-specific verification pending |
 | Old GS/NT/GT serial frames | `LegacyMultilineProtocol` | Rebuilt parser; model-specific testing pending |
 | Zero / tare | `ScaleClient.tare/zero` | Acknowledgement-based; actual devices not tested |
 | Auto reconnect | `read_with_reconnect` | Bounded retry for safe reads |
@@ -16,14 +16,14 @@ This is a new implementation of the intended workflow, **not an assertion of
 | Multi-balance running | `MultiScaleRunner` | Rebuilt with isolated sessions |
 | CSV/JSON export | `storage` | Rebuilt, new fixed schema |
 | JSON Lines/SQLite | `storage` | Added |
-| Logging | `app_logging` | Rebuilt on `logging` |
-| Basic GUI | `gui` | Rebuilt minimal Tkinter application |
-| Generic stopwatch | `timing` | Rebuilt |
-| Specimen metadata | `domain.Specimen` | Rebuilt simplified |
+| Logging | `logging/` | Rebuilt on `logging` |
+| Basic GUI | `interfaces/gui.py` | Rebuilt minimal Tkinter application |
+| Generic stopwatch | `times/` | Rebuilt |
+| Specimen metadata | `core.models.Specimen` | Rebuilt simplified |
 | Markdown/LaTeX reports | `reporting` | Simple new reports, **old designed template not migrated** (original TeX/PNG assets are preserved in `resources/original_report_templates/`) |
-| DataLog arbitrary column/matrix operations | `analysis`, `data_processing` | **Subset only**, not drop-in equivalent |
-| General purpose 2D/3D visualization wrappers | `plotting` | **Simple mass-vs-time chart only** |
-| Old generic `utils/data.py` list/ndarray utilities | `data_processing` | **Not migrated**; separate non-acquisition utilities |
+| DataLog arbitrary column/matrix operations | `data/` | **Subset only**, not drop-in equivalent |
+| General purpose 2D/3D visualization wrappers | `visualization/` | **Simple mass-vs-time chart only** |
+| Old generic `utils/data.py` list/ndarray utilities | `data/processing.py` | **Not migrated**; separate non-acquisition utilities |
 | Code and import conventions | `src` package + `pyproject.toml` | Rebuilt |
 
 The prioritized deliverable is reliable, extensible balance acquisition and

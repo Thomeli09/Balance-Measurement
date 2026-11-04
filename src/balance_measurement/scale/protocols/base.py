@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from decimal import Decimal
 
-from ..exceptions import UnsupportedOperationError
+from balance_measurement.core.exceptions import UnsupportedOperationError
 
 
 @dataclass(frozen=True, slots=True)

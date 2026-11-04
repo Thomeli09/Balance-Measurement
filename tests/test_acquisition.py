@@ -8,9 +8,9 @@ import pytest
 from balance_measurement.acquisition import (
     AcquisitionSession, AcquisitionSettings, MultiScaleRunner,
 )
-from balance_measurement.client import ScaleClient
-from balance_measurement.exceptions import ReadTimeoutError
-from balance_measurement.protocols import MettlerToledoProtocol
+from balance_measurement.scale.client import ScaleClient
+from balance_measurement.core.exceptions import ReadTimeoutError
+from balance_measurement.scale.protocols import MettlerToledoProtocol
 from balance_measurement.storage import default_recorder_registry, load_measurements
 
 

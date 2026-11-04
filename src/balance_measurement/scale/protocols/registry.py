@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
-from .and_weighing import ADWeighingProtocol
-from .base import ScaleProtocol
-from .legacy_multiline import LegacyMultilineProtocol
-from .mettler_toledo import MettlerToledoProtocol
+from balance_measurement.scale.protocols.and_weighing import ADWeighingProtocol
+from balance_measurement.scale.protocols.base import ScaleProtocol
+from balance_measurement.scale.protocols.legacy_multiline import LegacyMultilineProtocol
+from balance_measurement.scale.protocols.mettler_toledo import MettlerToledoProtocol
 
 
 class ProtocolRegistry:

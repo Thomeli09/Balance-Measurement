@@ -4,9 +4,9 @@ import json
 
 import pytest
 
-from balance_measurement.cli import main
+from balance_measurement.interfaces.cli import main
 from balance_measurement.config import load_config
-from balance_measurement.domain import Measurement
+from balance_measurement.core.models import Measurement
 from balance_measurement.storage import default_recorder_registry, load_measurements
 
 
@@ -54,7 +54,7 @@ def test_cli_forever_and_count_conflict(capsys):
 def test_cli_read_with_simulated_client(monkeypatch, capsys):
     from decimal import Decimal
 
-    from balance_measurement import cli
+    from balance_measurement.interfaces import cli
 
     class SimulatedClient:
         def __init__(self, *_args, **_kwargs):
@@ -77,7 +77,7 @@ def test_cli_read_with_simulated_client(monkeypatch, capsys):
 
 
 def test_cli_capture_with_fake_serial(monkeypatch, tmp_path, capsys):
-    from balance_measurement import cli
+    from balance_measurement.interfaces import cli
     from conftest import FakeTransport
 
     adapter = FakeTransport([b"S S 10.1 g\n", b"S D 10.2 g\n"])

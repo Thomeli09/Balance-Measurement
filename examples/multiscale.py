@@ -3,10 +3,10 @@
 from balance_measurement.acquisition import (
     AcquisitionSession, AcquisitionSettings, MultiScaleRunner,
 )
-from balance_measurement.client import ScaleClient
-from balance_measurement.protocols import default_registry
+from balance_measurement.scale.client import ScaleClient
+from balance_measurement.scale.protocols import default_registry
 from balance_measurement.storage import default_recorder_registry
-from balance_measurement.transport import SerialSettings, SerialTransport
+from balance_measurement.scale.transport import SerialSettings, SerialTransport
 
 registry = default_registry()
 outputs = default_recorder_registry()

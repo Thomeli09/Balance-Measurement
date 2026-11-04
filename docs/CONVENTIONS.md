@@ -2,7 +2,7 @@
 
 - Package and modules use `snake_case`; classes use `PascalCase`; functions,
   methods and parameters use `snake_case`; constants use `UPPER_SNAKE_CASE`.
-- Imports are absolute only at public boundaries and relative for sibling code.
+- Use clear absolute `balance_measurement.*` imports between subpackages; relative imports are fine within a subpackage.
   No wildcard imports. `src/` package layout avoids accidentally importing
   files from the development checkout.
 - Public APIs use explicit keyword-only configuration dataclasses and
@@ -32,9 +32,9 @@
 |---|---|
 | `SerialScale.getWeight()` | `ScaleClient.read_weight()` |
 | `SerialScale.setTare()` | `ScaleClient.tare()` |
-| `ScaleBench.py` | `transport/serial.py`, `protocols/*`, `client.py` |
-| `BalanceLib.py` | `domain.py`, `acquisition.py`, `client.py` |
-| `DataStorageLib.py` | `storage/*`, `analysis.py`, `data_processing.py` |
-| `GUIMessageLib.py` | `app_logging.py`, `gui.py` |
-| `TimeLib.Chrono` | `timing.Stopwatch` |
+| `ScaleBench.py` | `scale/transport/serial.py`, `scale/protocols/*`, `scale/client.py` |
+| `BalanceLib.py` | `core/models.py`, `acquisition/session.py`, `scale/client.py` |
+| `DataStorageLib.py` | `storage/*`, `data/analysis.py`, `data/processing.py` |
+| `GUIMessageLib.py` | `logging/setup.py`, `interfaces/gui.py` |
+| `TimeLib.Chrono` | `times.Stopwatch` |
 | `Data2LATEXLib` | `reporting.latex_report` |

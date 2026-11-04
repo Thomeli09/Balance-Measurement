@@ -5,7 +5,7 @@ from decimal import Decimal
 
 import pytest
 
-from balance_measurement.domain import Measurement, Specimen
+from balance_measurement.core.models import Measurement, Specimen
 
 
 def measurement(**changes):
