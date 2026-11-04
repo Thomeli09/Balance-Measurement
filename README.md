@@ -1,6 +1,9 @@
 # Balance Measurement — full rebuild
 
-A **clean, typed Python project** for communicating with laboratory balances by
+[![Python](https://img.shields.io/badge/Python-3.15%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-GPL--3.0--or--later-blue)](LICENSE)
+
+Balance Measurement is a Python project for communicating with laboratory balances by
 RS232/USB-to-serial, exchanging manufacturer-specific commands and recording
 readings in multiple formats.
 
