@@ -9,6 +9,7 @@ description = "Typed, extensible RS232 balance acquisition and recording"
 readme = "README.md"
 requires-python = ">=3.13"
 license = "MIT"
+license-files = ["LICENSE"]
 authors = [{name = "Eliott Thommes"}]
 keywords = ["balance", "RS232", "serial", "weighing", "laboratory", "acquisition"]
 dependencies = ["pyserial>=3.5,<4"]
@@ -20,6 +21,11 @@ classifiers = [
   "Operating System :: OS Independent",
   "Topic :: Scientific/Engineering",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Thomeli09/Balance-Measurement"
+Repository = "https://github.com/Thomeli09/Balance-Measurement"
+Issues = "https://github.com/Thomeli09/Balance-Measurement/issues"
 
 [project.optional-dependencies]
 plot = ["matplotlib>=3.10"]

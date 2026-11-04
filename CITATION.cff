@@ -1,5 +1,6 @@
 cff-version: 1.2.0
-message: "If you use this research software, cite this reference."
+message: "If you use this software in scientific, educational, or published work,
+  please cite it using the metadata from this file."
 type: software
 title: "Balance Measurement: Modular RS232 laboratory scale acquisition"
 authors:
@@ -8,7 +9,8 @@ authors:
     orcid: https://orcid.org/0009-0005-0697-2438
 version: 0.3.0
 license: MIT
-repository-code: https://github.com/Thomeli09/balance_measurement
+repository-code: https://github.com/Thomeli09/Balance-Measurement
+url: https://github.com/Thomeli09/Balance-Measurement
 keywords:
   - Python
   - RS232

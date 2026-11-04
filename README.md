@@ -1,5 +1,8 @@
 # Balance Measurement
 
+[![Python](https://img.shields.io/badge/Python-3.15%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+
 **Balance Measurement** (`balance_measurement`) is a Python toolkit for connecting a computer to a laboratory balance through **RS-232 or a USB-to-serial adapter**, reading its measurements and recording them in different file formats.
 
 The code is organized so that **balance protocols**, **serial communication**, **measurement acquisition**, **data processing**, and **file storage** can be changed independently. It is intended to be easy to extend when you change manufacturer or add a new export format.
@@ -37,8 +40,8 @@ In particular, the protocol adapters have **not been validated against physical 
 Clone the repository (or extract the distributed ZIP):
 
 ```bash
-git clone https://github.com/Thomeli09/balance_measurement.git
-cd balance_measurement
+git clone https://github.com/Thomeli09/Balance-Measurement.git
+cd Balance-Measurement
 ```
 
 Create a virtual environment with **Python 3.15** on Windows PowerShell:
@@ -66,7 +69,7 @@ For development, use **either** `python -m pip install -r requirements-dev.txt` 
 The main implementation is subdivided by **responsibility**, rather than placing all Python modules directly in the package root:
 
 ```text
-balance_measurement/
+Balance-Measurement/
 ├── pyproject.toml                 # Package metadata and dependencies (source of truth)
 ├── requirements.txt               # Editable runtime installation
 ├── requirements-dev.txt           # Editable development + plotting installation
@@ -215,7 +218,7 @@ Contributions are welcome, especially for additional weighing protocols, USB/RS-
 
 ## Citation
 
-If you use `balance_measurement` in scientific or published work, please cite the project. The reference metadata is stored in [`CITATION.cff`](CITATION.cff).
+If you use `Balance-Measurement` in scientific or published work, please cite the project. The reference metadata is stored in [`CITATION.cff`](CITATION.cff).
 
 ```bibtex
 @software{Thommes_BalanceMeasurement_2026,
@@ -223,7 +226,7 @@ If you use `balance_measurement` in scientific or published work, please cite th
   title   = {Balance Measurement: Modular RS232 laboratory scale acquisition},
   year    = {2026},
   version = {0.3.0},
-  url     = {https://github.com/Thomeli09/balance_measurement}
+  url     = {https://github.com/Thomeli09/Balance-Measurement}
 }
 ```
 

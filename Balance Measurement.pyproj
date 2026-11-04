@@ -79,8 +79,6 @@
     <Compile Include="tests\test_plotting_logging.py" />
     <Compile Include="tests\test_protocols.py" />
     <Compile Include="tests\test_recorders.py" />
-    <Compile Include="tests\test_storage.py" />
-    <Compile Include="tests\test_storageCSV.py" />
     <Compile Include="tests\test_transport.py" />
   </ItemGroup>
   <ItemGroup>
