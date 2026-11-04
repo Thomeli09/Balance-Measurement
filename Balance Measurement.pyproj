@@ -39,6 +39,8 @@
     <Compile Include="src\balance_measurement\interfaces\__init__.py" />
     <Compile Include="src\balance_measurement\logging\setup.py" />
     <Compile Include="src\balance_measurement\logging\__init__.py" />
+    <Compile Include="src\balance_measurement\reporting\reports.py" />
+    <Compile Include="src\balance_measurement\reporting\__init__.py" />
     <Compile Include="src\balance_measurement\scale\client.py" />
     <Compile Include="src\balance_measurement\scale\protocols\and_weighing.py" />
     <Compile Include="src\balance_measurement\scale\protocols\base.py" />
@@ -65,23 +67,39 @@
     <Compile Include="src\balance_measurement\visualization\__init__.py" />
     <Compile Include="src\balance_measurement\__init__.py" />
     <Compile Include="src\balance_measurement\__main__.py" />
-    <Compile Include="tests\test.py" />
+    <Compile Include="tests\conftest.py" />
+    <Compile Include="tests\integration\test_hardware.py" />
+    <Compile Include="tests\test_acquisition.py" />
+    <Compile Include="tests\test_analysis_reporting.py" />
+    <Compile Include="tests\test_client.py" />
+    <Compile Include="tests\test_config_cli.py" />
+    <Compile Include="tests\test_data_processing.py" />
+    <Compile Include="tests\test_models.py" />
+    <Compile Include="tests\test_package_structure.py" />
+    <Compile Include="tests\test_plotting_logging.py" />
+    <Compile Include="tests\test_protocols.py" />
+    <Compile Include="tests\test_recorders.py" />
     <Compile Include="tests\test_storage.py" />
     <Compile Include="tests\test_storageCSV.py" />
-    <Compile Include="tests\test_logging.py" />
+    <Compile Include="tests\test_transport.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
     <Content Include="CHANGELOG.md" />
     <Content Include="CITATION.cff" />
     <Content Include="docs\ARCHITECTURE.md" />
     <Content Include="docs\CONVENTIONS.md" />
+    <Content Include="docs\DEVELOPMENT.md" />
     <Content Include="docs\FEATURE_COVERAGE.md" />
     <Content Include="docs\HARDWARE_VALIDATION.md" />
     <Content Include="docs\MIGRATION.md" />
+    <Content Include="docs\MIGRATION_V0.2_TO_V0.3.md" />
     <Content Include="examples\settings.toml" />
     <Content Include="LICENSE">
       <Publish>False</Publish>
     </Content>
+    <Content Include="MANIFEST.in" />
     <Content Include="resources\original_report_templates\LogoUEE.png" />
     <Content Include="resources\original_report_templates\template_Specimen Test Data Sheet Supplementary.tex" />
     <Content Include="resources\original_report_templates\template_Specimen Test Data Sheet.tex" />
@@ -89,6 +107,7 @@
     <Content Include="README.md" />
     <Content Include="requirements-dev.txt" />
     <Content Include="requirements.txt" />
+    <Content Include="src\balance_measurement\py.typed" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="docs\" />
@@ -103,6 +122,7 @@
     <Folder Include="src\balance_measurement\data\" />
     <Folder Include="src\balance_measurement\interfaces\" />
     <Folder Include="src\balance_measurement\logging\" />
+    <Folder Include="src\balance_measurement\reporting\" />
     <Folder Include="src\balance_measurement\scale\" />
     <Folder Include="src\balance_measurement\scale\protocols\" />
     <Folder Include="src\balance_measurement\scale\transport\" />
@@ -111,6 +131,7 @@
     <Folder Include="src\balance_measurement\utils\" />
     <Folder Include="src\balance_measurement\visualization\" />
     <Folder Include="tests\" />
+    <Folder Include="tests\integration\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
